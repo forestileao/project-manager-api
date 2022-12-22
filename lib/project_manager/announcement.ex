@@ -19,7 +19,7 @@ defmodule ProjectManager.Announcement do
     |> apply_action(:insert)
   end
 
-  @required_params [:title, :body]
+  @required_params [:title, :body, :profile_id]
   def changeset(params), do: create_changeset(%__MODULE__{}, params)
 
   defp create_changeset(announcement, params) do
