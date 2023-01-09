@@ -5,6 +5,7 @@ defmodule ProjectManager.Announcement do
   alias ProjectManager.Profile
 
   @primary_key {:id, Ecto.UUID, autogenerate: true}
+  @foreign_key_type Ecto.UUID
 
   schema "announcements" do
     field(:title, :string)
@@ -23,9 +24,12 @@ defmodule ProjectManager.Announcement do
   def changeset(params), do: create_changeset(%__MODULE__{}, params)
 
   defp create_changeset(announcement, params) do
+    IO.inspect(params)
+
     announcement
     |> cast(params, @required_params)
     |> validate_required(@required_params)
+    |> assoc_constraint(:profile)
     |> validate_length(:title, max: 30)
     |> validate_length(:body, max: 5000)
   end

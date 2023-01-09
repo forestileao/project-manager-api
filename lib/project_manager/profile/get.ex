@@ -1,5 +1,4 @@
 defmodule ProjectManager.Profile.Get do
-  alias Postgrex.Extensions.UUID
   alias Ecto.UUID
   alias ProjectManager.Profile
   alias ProjectManager.Repo
@@ -7,7 +6,7 @@ defmodule ProjectManager.Profile.Get do
   def call(%{"id" => id}) do
     case UUID.cast(id) do
       :error -> {:error, "Invalid id format!"}
-      {:ok, _uuid} -> get(id)
+      {:ok, uuid} -> get(uuid)
     end
   end
 
