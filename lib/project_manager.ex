@@ -1,9 +1,10 @@
 defmodule ProjectManager do
-  @moduledoc """
-  ProjectManager keeps the contexts that define your domain
-  and business logic.
+  alias ProjectManager.{Announcement, Profile}
 
-  Contexts are also responsible for managing your data, regardless
-  if it comes from the database, an external API or others.
-  """
+  defdelegate create_profile(params), to: Profile.Create, as: :call
+  defdelegate fetch_profile(params), to: Profile.Get, as: :call
+
+  defdelegate list_announcement(params), to: Announcement.List, as: :call
+  defdelegate create_announcement(params), to: Announcement.Create, as: :call
+  defdelegate delete_announcement(params), to: Announcement.Delete, as: :call
 end
