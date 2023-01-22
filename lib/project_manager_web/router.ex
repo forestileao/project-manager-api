@@ -1,12 +1,19 @@
 defmodule ProjectManagerWeb.Router do
+  alias ProjectManagerWeb.ProfilesController
+  alias ProjectManagerWeb.AnnouncementsController
   use ProjectManagerWeb, :router
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
-  scope "/api", ProjectManagerWeb do
+  scope "/api/v1", ProjectManagerWeb do
     pipe_through :api
+
+    resources "/announcements", AnnouncementsController, only: [:create, :delete, :index]
+
+    post "/profiles", ProfilesController, :create
+    get "/profiles/:id", ProfilesController, :show
   end
 
   # Enables LiveDashboard only for development

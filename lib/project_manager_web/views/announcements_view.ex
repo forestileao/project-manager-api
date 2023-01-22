@@ -1,7 +1,7 @@
 defmodule ProjectManagerWeb.AnnouncementsView do
   use ProjectManagerWeb, :view
 
-  def render("list.json", %{entries: entries} = paged_response) do
+  def render("index.json", %{entries: entries} = paged_response) do
     paged_response
     |> Map.put(:entries, entries |> Enum.map(&translate_response/1))
   end

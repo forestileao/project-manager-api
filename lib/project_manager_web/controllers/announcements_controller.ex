@@ -9,9 +9,9 @@ defmodule ProjectManagerWeb.AnnouncementsController do
     end
   end
 
-  def list(conn, params) do
+  def index(conn, params) do
     with {:ok, paged_result} <- ProjectManager.list_announcement(params) do
-      handle_response(conn, :ok, "list.json", paged_result)
+      handle_response(conn, :ok, "index.json", paged_result)
     end
   end
 
