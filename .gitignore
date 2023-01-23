@@ -35,3 +35,6 @@ project_manager-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# Ignore all private and public key files
+*.pem
+

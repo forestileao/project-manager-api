@@ -1,7 +1,7 @@
 defmodule ProjectManagerWeb.ProfilesView do
   use ProjectManagerWeb, :view
 
-  @public_fields [:username, :email, :inserted_at]
+  @public_fields [:id, :username, :email, :inserted_at]
 
   def render("create.json", %{profile: profile, token: token}) do
     %{
@@ -13,6 +13,13 @@ defmodule ProjectManagerWeb.ProfilesView do
 
   def render("show.json", %{profile: profile}) do
     %{
+      profile: profile |> Map.take(@public_fields)
+    }
+  end
+
+  def render("sign_in.json", %{token: token, profile: profile}) do
+    %{
+      token: token,
       profile: profile |> Map.take(@public_fields)
     }
   end

@@ -1,7 +1,17 @@
 defmodule ProjectManagerWeb.ProfilesController do
   use ProjectManagerWeb, :controller
 
+  alias ProjectManagerWeb.Auth.Guardian
+
   action_fallback ProjectManagerWeb.FallbackController
+
+  def sign_in(conn, %{"username" => _, "password" => _} = params) do
+    with {:ok, token, profile} <- Guardian.authenticate(params) do
+      conn
+      |> put_status(:ok)
+      |> render("sign_in.json", %{token: token, profile: profile})
+    end
+  end
 
   def create(conn, params) do
     with {:ok, profile} <- ProjectManager.create_profile(params) do
