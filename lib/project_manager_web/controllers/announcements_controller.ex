@@ -1,10 +1,19 @@
 defmodule ProjectManagerWeb.AnnouncementsController do
   use ProjectManagerWeb, :controller
+  import ProjectManagerWeb.Auth.Guardian, only: [load_current_profile: 2]
+
+  plug :load_current_profile
 
   action_fallback ProjectManagerWeb.FallbackController
 
+  @spec create(atom | %{:assigns => nil | maybe_improper_list | map, optional(any) => any}, any) ::
+          any
   def create(conn, params) do
-    with {:ok, announcement} <- ProjectManager.create_announcement(params) do
+    profile = conn.assigns[:current_profile]
+    params = params |> Map.put(:profile, profile)
+
+    with {:ok, announcement} <-
+           ProjectManager.create_announcement(params) do
       handle_response(conn, :created, "create.json", %{announcement: announcement})
     end
   end

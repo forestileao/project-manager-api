@@ -3,7 +3,7 @@ defmodule ProjectManagerWeb.Auth.SecretFetcher do
 
   def fetch_signing_secret(_module, _opts) do
     secret =
-      "private.pem"
+      "rsa-2048.pem"
       |> fetch()
 
     {:ok, secret}
@@ -11,7 +11,7 @@ defmodule ProjectManagerWeb.Auth.SecretFetcher do
 
   def fetch_verifying_secret(_module, _headers, _opts) do
     secret =
-      "public.pem"
+      "rsa-2048.pem"
       |> fetch()
 
     {:ok, secret}

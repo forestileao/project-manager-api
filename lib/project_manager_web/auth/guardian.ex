@@ -2,7 +2,9 @@ defmodule ProjectManagerWeb.Auth.Guardian do
   use Guardian, otp_app: :project_manager
 
   alias ProjectManager.{Repo, Profile}
+
   import Ecto.Query
+  import Plug.Conn
 
   def subject_for_token(profile, _claims) do
     sub = to_string(profile.id)
@@ -22,6 +24,11 @@ defmodule ProjectManagerWeb.Auth.Guardian do
       nil -> {:error, "Profile not found!"}
       profile -> validate_password(profile, password)
     end
+  end
+
+  def load_current_profile(conn, _) do
+    conn
+    |> assign(:current_profile, Guardian.Plug.current_resource(conn))
   end
 
   defp validate_password(%Profile{password_hash: hash} = profile, password) do
