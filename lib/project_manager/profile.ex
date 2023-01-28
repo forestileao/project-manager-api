@@ -11,7 +11,7 @@ defmodule ProjectManager.Profile do
     field(:email, :string)
     field(:password_hash, :string)
     field(:password, :string, virtual: true)
-    has_many(:announcement, Announcement)
+    has_many(:announcements, Announcement)
     timestamps()
   end
 
