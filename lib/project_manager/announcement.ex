@@ -20,16 +20,14 @@ defmodule ProjectManager.Announcement do
     |> apply_action(:insert)
   end
 
-  @required_params [:title, :body, :profile]
+  @required_params [:title, :body]
   def changeset(params), do: create_changeset(%__MODULE__{}, params)
 
   defp create_changeset(announcement, params) do
-    IO.inspect(params)
-
     announcement
     |> cast(params, @required_params)
-    |> validate_required(@required_params)
     |> assoc_constraint(:profile)
+    |> validate_required(@required_params)
     |> validate_length(:title, max: 30)
     |> validate_length(:body, max: 5000)
   end
