@@ -4,7 +4,7 @@ defmodule ProjectManager.AnnouncementTest do
 
   alias ProjectManager.{Profile, Announcement}
 
-  setup_all state do
+  setup_all do
     params = %{username: "testuser", email: "test@test.com", password: "test123"}
     {:ok, profile} = Profile.build(params)
 
