@@ -3,9 +3,7 @@ defmodule ProjectManager.Profile.Create do
   alias ProjectManager.Repo
 
   def call(params) do
-    for {key, val} <- params, into: %{} do
-      {String.to_atom(key), val}
-    end
+    params
     |> Profile.build()
     |> handle_build()
   end

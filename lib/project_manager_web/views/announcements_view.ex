@@ -1,9 +1,12 @@
 defmodule ProjectManagerWeb.AnnouncementsView do
   use ProjectManagerWeb, :view
 
-  def render("index.json", %{entries: entries} = paged_response) do
-    paged_response
-    |> Map.put(:entries, entries |> Enum.map(&translate_response/1))
+  require Protocol
+  Protocol.derive(Jason.Encoder, Scrivener.Page)
+
+  def render("index.json", %{paged_result: paged_result}) do
+    paged_result
+    |> Map.put(:entries, paged_result.entries |> Enum.map(&translate_response/1))
   end
 
   def render("create.json", %{announcement: announcement}) do

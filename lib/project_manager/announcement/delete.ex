@@ -12,8 +12,8 @@ defmodule ProjectManager.Announcement.Delete do
 
   defp delete(id) do
     case Repo.get(Announcement, id) do
-      {:error, _changeset} = error -> error
-      {:ok, announcement} -> Repo.delete(announcement)
+      nil -> {:error, "Announcement not found!"}
+      announcement -> Repo.delete(announcement)
     end
   end
 end

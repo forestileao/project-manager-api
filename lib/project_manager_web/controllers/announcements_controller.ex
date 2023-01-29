@@ -10,17 +10,18 @@ defmodule ProjectManagerWeb.AnnouncementsController do
           any
   def create(conn, params) do
     profile = conn.assigns[:current_profile]
-    params = params |> Map.put(:profile, profile)
+    params = params |> Map.put("profile_id", profile.id)
 
     with {:ok, announcement} <-
            ProjectManager.create_announcement(params) do
+      announcement = announcement |> Map.put(:profile, profile)
       handle_response(conn, :created, "create.json", %{announcement: announcement})
     end
   end
 
   def index(conn, params) do
     with {:ok, paged_result} <- ProjectManager.list_announcement(params) do
-      handle_response(conn, :ok, "index.json", paged_result)
+      handle_response(conn, :ok, "index.json", %{paged_result: paged_result})
     end
   end
 

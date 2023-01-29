@@ -3,9 +3,7 @@ defmodule ProjectManager.Announcement.Create do
   alias ProjectManager.Announcement
 
   def call(params) do
-    for {key, val} <- params, into: %{} do
-      {String.to_atom(key), val}
-    end
+    params
     |> create()
   end
 
