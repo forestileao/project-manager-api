@@ -1,19 +1,19 @@
 defmodule ProjectManager.AnnouncementTest do
-  use ExUnit.Case, async: true
   use ProjectManager.DataCase
 
   alias ProjectManager.{Profile, Announcement}
 
-  setup_all do
-    params = %{username: "testuser", email: "test@test.com", password: "test123"}
-    {:ok, profile} = Profile.build(params)
-
-    {:ok, profile: profile}
-  end
-
   describe "changeset/1" do
+    setup do
+      params = %{username: "testuser", email: "test@test.com", password: "test123"}
+      {:ok, profile} = Profile.Create.call(params)
+
+      {:ok, profile: profile}
+    end
+
     test "when all params are valid, returns a valid changeset", state do
-      params = %{title: "title test", body: "body test", profile: state[:profile]}
+      profile = state[:profile]
+      params = %{title: "title test", body: "body test", profile_id: profile.id}
 
       response = Announcement.changeset(params)
 
@@ -26,7 +26,8 @@ defmodule ProjectManager.AnnouncementTest do
     end
 
     test "when any param is invalid, returns a valid changeset", state do
-      params = %{body: "body test", profile: state[:profile]}
+      profile = state[:profile]
+      params = %{body: "body test", profile_id: profile.id}
 
       response = Announcement.changeset(params)
 
@@ -40,8 +41,16 @@ defmodule ProjectManager.AnnouncementTest do
   end
 
   describe "build/1" do
+    setup do
+      params = %{username: "testuser", email: "test@test.com", password: "test123"}
+      {:ok, profile} = Profile.Create.call(params)
+
+      {:ok, profile: profile}
+    end
+
     test "when all params are valid, returns a valid Announcement struct", state do
-      params = %{title: "title test", body: "body test", profile: state[:profile]}
+      profile = state[:profile]
+      params = %{title: "title test", body: "body test", profile_id: profile.id}
 
       response = Announcement.build(params)
 
@@ -49,7 +58,8 @@ defmodule ProjectManager.AnnouncementTest do
     end
 
     test "when any param is invalid, returns the invalid changeset", state do
-      params = %{body: "body test", profile: state[:profile]}
+      profile = state[:profile]
+      params = %{body: "body test", profile_id: profile.id}
 
       {:error, changeset} = Announcement.build(params)
 

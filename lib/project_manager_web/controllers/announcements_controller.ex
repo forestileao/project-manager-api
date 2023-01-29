@@ -10,7 +10,7 @@ defmodule ProjectManagerWeb.AnnouncementsController do
           any
   def create(conn, params) do
     profile = conn.assigns[:current_profile]
-    params = params |> Map.put(:profile, profile)
+    params = params |> Map.put(:profile_id, profile.id)
 
     with {:ok, announcement} <-
            ProjectManager.create_announcement(params) do
