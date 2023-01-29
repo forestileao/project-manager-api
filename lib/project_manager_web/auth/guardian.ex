@@ -12,9 +12,11 @@ defmodule ProjectManagerWeb.Auth.Guardian do
   end
 
   def resource_from_claims(claims) do
-    claims
-    |> Map.get("sub")
-    |> ProjectManager.fetch_profile()
+    id =
+      claims
+      |> Map.get("sub")
+
+    ProjectManager.fetch_profile(%{"id" => id})
   end
 
   def authenticate(%{"username" => username, "password" => password}) do
