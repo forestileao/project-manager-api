@@ -2,6 +2,9 @@ defmodule ProjectManagerWeb.AnnouncementsController do
   use ProjectManagerWeb, :controller
   import ProjectManagerWeb.Auth.Guardian, only: [load_current_profile: 2]
 
+  require Protocol
+  Protocol.derive(Jason.Encoder, Scrivener.Page)
+
   plug :load_current_profile
 
   action_fallback ProjectManagerWeb.FallbackController
@@ -21,7 +24,7 @@ defmodule ProjectManagerWeb.AnnouncementsController do
 
   def index(conn, params) do
     with {:ok, paged_result} <- ProjectManager.list_announcement(params) do
-      handle_response(conn, :ok, "index.json", paged_result)
+      handle_response(conn, :ok, "index.json", %{paged_result: paged_result})
     end
   end
 
