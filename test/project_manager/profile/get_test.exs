@@ -1,5 +1,5 @@
 defmodule ProjectManager.Profile.GetTest do
-  use ProjectManager.DataCase
+  use ProjectManager.DataCase, async: true
 
   alias ProjectManager.{Repo, Profile}
   alias Profile.Get

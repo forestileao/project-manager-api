@@ -1,5 +1,5 @@
 defmodule ProjectManager.Announcement.CreateTest do
-  use ProjectManager.DataCase
+  use ProjectManager.DataCase, async: true
   alias ProjectManager.{Announcement, Profile}
   alias Announcement.Create
 
