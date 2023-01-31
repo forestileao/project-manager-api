@@ -2,7 +2,7 @@ defmodule ProjectManager.Profile do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias ProjectManager.Announcement
+  alias ProjectManager.{Announcement, Project}
 
   @primary_key {:id, Ecto.UUID, autogenerate: true}
 
@@ -12,6 +12,7 @@ defmodule ProjectManager.Profile do
     field(:password_hash, :string)
     field(:password, :string, virtual: true)
     has_many(:announcements, Announcement)
+    has_many(:projects, Project)
     timestamps()
   end
 
