@@ -9,6 +9,8 @@ defmodule ProjectManager.Profile do
   schema "profiles" do
     field(:username, :string)
     field(:email, :string)
+    field(:avatar, :string)
+    field(:description, :string)
     field(:password_hash, :string)
     field(:password, :string, virtual: true)
     has_many(:announcements, Announcement)
@@ -25,6 +27,8 @@ defmodule ProjectManager.Profile do
   @required_fields [:username, :email, :password]
   def changeset(params), do: create_changeset(%__MODULE__{}, params)
 
+  def changeset(%__MODULE__{} = profile, params), do: update_changeset(profile, params)
+
   @mail_regex ~r/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/
   defp create_changeset(profile, params) do
     profile
@@ -32,6 +36,13 @@ defmodule ProjectManager.Profile do
     |> validate_required(@required_fields)
     |> validate_format(:email, @mail_regex)
     |> put_password_hash()
+  end
+
+  defp update_changeset(profile, params) do
+    profile
+    |> cast(params, [:email, :avatar, :description])
+    |> validate_required([:email])
+    |> validate_format(:email, @mail_regex)
   end
 
   defp put_password_hash(
