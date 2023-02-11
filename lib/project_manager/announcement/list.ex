@@ -8,6 +8,7 @@ defmodule ProjectManager.Announcement.List do
     result =
       Announcement
       |> order_by(desc: :inserted_at)
+      |> preload(:profile)
       |> Repo.paginate(params)
 
     {:ok, result}

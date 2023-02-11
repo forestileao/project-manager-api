@@ -6,8 +6,6 @@ defmodule ProjectManagerWeb.AnnouncementsController do
 
   action_fallback ProjectManagerWeb.FallbackController
 
-  @spec create(atom | %{:assigns => nil | maybe_improper_list | map, optional(any) => any}, any) ::
-          any
   def create(conn, params) do
     profile = conn.assigns[:current_profile]
     params = params |> Map.put("profile_id", profile.id)

@@ -12,17 +12,23 @@ defmodule ProjectManagerWeb.Router do
   scope "/api/v1", ProjectManagerWeb do
     pipe_through :api
 
-    resources "/announcements", AnnouncementsController, only: [:delete, :index]
+    get "/announcements", AnnouncementsController, :index
 
     post "/profiles/sign_in", ProfilesController, :sign_in
-    post "/profiles", ProfilesController, :create
+    post "/profiles/sign_up", ProfilesController, :create
     get "/profiles/:id", ProfilesController, :show
+    get "/profiles", ProfilesController, :index
+
+    get "/projects", ProjectsController, :index
   end
 
   scope "/api/v1", ProjectManagerWeb do
     pipe_through [:api, :auth]
 
+    resources "/announcements", AnnouncementsController, only: [:delete, :create]
     post "/announcements", AnnouncementsController, :create
+    put "/profiles/self", ProfilesController, :update
+    post "/projects", ProjectsController, :create
   end
 
   # Enables LiveDashboard only for development

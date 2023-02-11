@@ -3,6 +3,8 @@ defmodule ProjectManager do
 
   defdelegate create_profile(params), to: Profile.Create, as: :call
   defdelegate fetch_profile(params), to: Profile.Get, as: :call
+  defdelegate update_profile(params), to: Profile.Update, as: :call
+  defdelegate list_profiles(), to: Profile.List, as: :call
 
   defdelegate list_announcement(params), to: Announcement.List, as: :call
   defdelegate create_announcement(params), to: Announcement.Create, as: :call

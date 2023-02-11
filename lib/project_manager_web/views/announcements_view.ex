@@ -16,6 +16,10 @@ defmodule ProjectManagerWeb.AnnouncementsView do
   defp translate_response(%{profile: profile} = announcement) do
     announcement
     |> Map.take([:id, :title, :body, :inserted_at, :profile])
-    |> Map.put(:profile, %{id: profile.id, username: profile.username})
+    |> Map.put(:profile, %{
+      id: profile.id,
+      username: profile.username,
+      avatar: profile.avatar
+    })
   end
 end

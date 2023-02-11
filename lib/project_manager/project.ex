@@ -6,6 +6,7 @@ defmodule ProjectManager.Project do
 
   @primary_key {:id, Ecto.UUID, autogenerate: true}
   @foreign_key_type Ecto.UUID
+  @derive {Jason.Encoder, only: [:id, :repo, :description]}
 
   schema "projects" do
     field(:repo, :string)

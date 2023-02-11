@@ -43,6 +43,17 @@ defmodule ProjectManager.Profile do
     |> cast(params, [:email, :avatar, :description])
     |> validate_required([:email])
     |> validate_format(:email, @mail_regex)
+    |> validate_url()
+  end
+
+  defp validate_url(changeset) do
+    validate_change(changeset, :avatar, fn :avatar, value ->
+      case URI.parse(value) do
+        %URI{scheme: "https", path: path} when not is_nil(path) -> []
+        %URI{scheme: "http", path: path} when not is_nil(path) -> []
+        _ -> [avatar: "is not a valid URL"]
+      end
+    end)
   end
 
   defp put_password_hash(
