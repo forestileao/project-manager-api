@@ -1,6 +1,8 @@
 defmodule ProjectManagerWeb.ProfilesController do
   use ProjectManagerWeb, :controller
 
+  import Plug.Conn
+
   import ProjectManagerWeb.Auth.Guardian,
     only: [authenticate: 1, load_current_profile: 2, encode_and_sign: 1]
 
@@ -17,10 +19,22 @@ defmodule ProjectManagerWeb.ProfilesController do
   end
 
   def create(conn, params) do
-    with {:ok, profile} <- ProjectManager.create_profile(params),
-         {:ok, token, _claims} <- encode_and_sign(profile) do
-      conn
-      |> handle_response(:created, "create.json", %{profile: profile, token: token})
+    api_key =
+      Application.get_env(:project_manager, ProjectManagerWeb.ProfilesController)[:api_key]
+
+    [api_key_header] = get_req_header(conn, "x-api-key")
+
+    IO.inspect(api_key)
+    IO.inspect(api_key_header)
+
+    if api_key_header == api_key do
+      with {:ok, profile} <- ProjectManager.create_profile(params),
+           {:ok, token, _claims} <- encode_and_sign(profile) do
+        conn
+        |> handle_response(:created, "create.json", %{profile: profile, token: token})
+      end
+    else
+      {:error, "Unauthorized!", :unauthorized}
     end
   end
 

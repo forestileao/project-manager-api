@@ -1,5 +1,8 @@
 import Config
 
+config :project_manager, ProjectManagerWeb.ProfilesController,
+  api_key: "AXMhU6TAdc8zsWdIO9P7n5kFBPCfbh9nI/CZaObMVWtErms3f06Q46PGKXR8HGjN"
+
 # Configure your database
 config :project_manager, ProjectManager.Repo,
   username: "postgres",

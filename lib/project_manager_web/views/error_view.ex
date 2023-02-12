@@ -8,13 +8,6 @@ defmodule ProjectManagerWeb.ErrorView do
   #   %{errors: %{detail: "Internal Server Error"}}
   # end
 
-  # By default, Phoenix returns the status message from
-  # the template name. For example, "404.json" becomes
-  # "Not Found".
-  def template_not_found(template, _assigns) do
-    %{errors: %{detail: Phoenix.Controller.status_message_from_template(template)}}
-  end
-
   def render("400.json", %{result: %Ecto.Changeset{} = result}) do
     %{message: translate_errors(result)}
   end
@@ -27,8 +20,15 @@ defmodule ProjectManagerWeb.ErrorView do
     %{message: message}
   end
 
-  def render("401.json", %{message: message}) do
+  def render("401.json", %{result: message}) do
     %{message: message}
+  end
+
+  # By default, Phoenix returns the status message from
+  # the template name. For example, "404.json" becomes
+  # "Not Found".
+  def template_not_found(template, _assigns) do
+    %{errors: %{detail: Phoenix.Controller.status_message_from_template(template)}}
   end
 
   defp translate_errors(changeset) do

@@ -26,7 +26,6 @@ defmodule ProjectManagerWeb.Router do
     pipe_through [:api, :auth]
 
     resources "/announcements", AnnouncementsController, only: [:delete, :create]
-    post "/announcements", AnnouncementsController, :create
     put "/profiles/self", ProfilesController, :update
     post "/projects", ProjectsController, :create
   end
