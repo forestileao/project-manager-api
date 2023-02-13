@@ -1,6 +1,6 @@
 import Config
 
-config :project_manager, ProjectManagerWeb.ProfilesController,
+config :project_manager, ProjectManagerWeb.ProfilesController, api_key: System.get_env("API_KEY")
 
 # For production, don't forget to configure the url host
 # to something meaningful, Phoenix uses this information
