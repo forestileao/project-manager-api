@@ -56,6 +56,11 @@ config :project_manager, ProjectManagerWeb.Auth.Pipeline,
   module: ProjectManagerWeb.Auth.Guardian,
   error_handler: ProjectManagerWeb.Auth.ErrorHandler
 
+config :cors_plug,
+  origin: ["http://localhost", "https://hellhat.com"],
+  max_age: 86400,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"]
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"

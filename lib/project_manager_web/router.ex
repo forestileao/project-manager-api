@@ -2,6 +2,7 @@ defmodule ProjectManagerWeb.Router do
   use ProjectManagerWeb, :router
 
   pipeline :api do
+    plug CORSPlug
     plug :accepts, ["json"]
   end
 
