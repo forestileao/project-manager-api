@@ -1,6 +1,6 @@
 import Config
 
-config :project_manager, ProjectManagerWeb.ProfilesController, api_key: System.get_env("API_KEY")
+config :project_manager, ProjectManagerWeb.ProfilesController,
 
 # For production, don't forget to configure the url host
 # to something meaningful, Phoenix uses this information
@@ -16,11 +16,3 @@ config :project_manager, ProjectManagerWeb.Endpoint,
 
 # Do not print debug messages in production
 config :logger, level: :info
-
-config :project_manager, ProjectManagerWeb.Endpoint,
-  load_from_system_env: true,
-  http: [port: {:system, "PORT"}],
-  server: true,
-  secret_key_base: "${SECRET_KEY_BASE}",
-  url: [host: "${APP_NAME}.gigalixirapp.com", port: 443],
-  cache_static_manifest: "priv/static/cache_manifest.json"

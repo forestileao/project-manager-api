@@ -47,8 +47,7 @@ defmodule ProjectManager.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:argon2_elixir, "~> 3.0"},
       {:scrivener_ecto, "~> 2.7"},
-      {:guardian, "~> 2.0"},
-      {:distillery, "~> 2.1"}
+      {:guardian, "~> 2.0"}
     ]
   end
 
