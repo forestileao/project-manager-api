@@ -57,7 +57,7 @@ config :project_manager, ProjectManagerWeb.Auth.Pipeline,
   error_handler: ProjectManagerWeb.Auth.ErrorHandler
 
 config :cors_plug,
-  origin: ["http://localhost:3000", "https://hellhat.com"],
+  origin: ["http://localhost:3000", "https://hellhat.com", "https://www.hellhat.com"],
   max_age: 86400,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE"]
 
